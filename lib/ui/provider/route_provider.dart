@@ -1,4 +1,4 @@
-import 'package:exo_vr/modules/home/ui/pages/home_page.dart';
+import 'package:exo_vr/modules/home/ui/home_page.dart';
 import 'package:exo_vr/modules/landing/ui/landing_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

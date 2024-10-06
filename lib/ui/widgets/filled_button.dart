@@ -19,11 +19,13 @@ class CustomFilledButton extends ConsumerStatefulWidget {
     this.selected = true,
     this.externalLoading,
     this.onLoadingChanged,
+    this.iconSize,
     this.fontSize,
   });
 
   final Future<void> Function() onTap;
   final IconData? leading;
+  final double? iconSize;
   final Color? textColor;
   final IconData? trailing;
   final EdgeInsets? padding;
@@ -112,7 +114,7 @@ class _CustomFilledButtonState extends ConsumerState<CustomFilledButton> {
             if (widget.leading != null && loading == false)
               Icon(
                 widget.leading,
-                size: 20,
+                size: widget.iconSize ?? 20,
                 color: widget.enabled
                     ? (widget.iconColor ?? (widget.selected ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.onSurface))
                     : (widget.iconColor ?? Theme.of(context).colorScheme.onSurface).withOpacity(.5),
@@ -120,26 +122,24 @@ class _CustomFilledButtonState extends ConsumerState<CustomFilledButton> {
             else
               const SizedBox.shrink(),
             if (widget.text != null && loading == false)
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
-                    widget.text!,
-                    maxLines: 1,
-                    textAlign: widget.textAlign,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontSize: widget.fontSize,
-                        fontWeight: FontWeight.bold,
-                        color: !widget.enabled
-                            ? Theme.of(context).colorScheme.onPrimary.withOpacity(.5)
-                            : widget.textColor ?? (widget.selected ? Theme.of(context).colorScheme.onPrimary : null)),
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  widget.text!,
+                  maxLines: 1,
+                  textAlign: widget.textAlign,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: widget.fontSize,
+                      fontWeight: FontWeight.bold,
+                      color: !widget.enabled
+                          ? Theme.of(context).colorScheme.onPrimary.withOpacity(.5)
+                          : widget.textColor ?? (widget.selected ? Theme.of(context).colorScheme.onPrimary : null)),
                 ),
               ),
             widget.trailing != null && loading == false
                 ? Icon(widget.trailing,
-                    size: 20,
+                    size: widget.iconSize ?? 20,
                     color: widget.enabled
                         ? (widget.iconColor ?? (widget.selected ? Theme.of(context).colorScheme.onPrimary : Theme.of(context).colorScheme.onSurface))
                         : (widget.iconColor ?? Theme.of(context).colorScheme.onSurface).withOpacity(.5))
@@ -148,6 +148,6 @@ class _CustomFilledButtonState extends ConsumerState<CustomFilledButton> {
         ),
       ),
     );
-    return Tooltip(message: widget.tooltip ?? widget.text, child: button);
+    return Tooltip(message: widget.tooltip ?? widget.text ?? '', child: button);
   }
 }

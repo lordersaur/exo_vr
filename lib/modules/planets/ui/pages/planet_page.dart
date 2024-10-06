@@ -3,7 +3,7 @@ import 'package:exo_vr/modules/planets/ui/widgets/planet_button.dart';
 import 'package:exo_vr/modules/planets/ui/widgets/planet_description.dart';
 import 'package:exo_vr/modules/planets/ui/widgets/planet_image.dart';
 import 'package:flutter/material.dart';
-import 'package:exo_vr/pages/planet_android_page.dart';
+import 'package:exo_vr/modules/space_camera/planet_android_page.dart';
 
 class PlanetPage extends StatelessWidget {
   const PlanetPage({super.key});

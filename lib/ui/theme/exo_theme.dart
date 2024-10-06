@@ -48,7 +48,21 @@ class ExoTheme {
         onSurface: _onSurfaceColor,
       ),
       textTheme: _textTheme,
-      filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: borderRadius)))),
+      tabBarTheme: TabBarTheme(
+        unselectedLabelStyle: _textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+        indicator: null,
+        dividerColor: Colors.transparent,
+        labelStyle: _textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+        labelColor: _secondaryColor,
+        unselectedLabelColor: _onPrimaryColor,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: ButtonStyle(
+          shape: WidgetStatePropertyAll(
+            RoundedRectangleBorder(borderRadius: borderRadius),
+          ),
+        ),
+      ),
       outlinedButtonTheme:
           OutlinedButtonThemeData(style: ButtonStyle(shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: borderRadius)))));
 
