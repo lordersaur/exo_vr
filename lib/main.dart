@@ -1,29 +1,32 @@
-import 'package:exo_vr/pages/exo_viewer.dart';
-import 'package:exo_vr/pages/planet_android_page.dart';
+import 'package:exo_vr/ui/provider/route_provider.dart';
+import 'package:exo_vr/ui/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart' show ArCoreController;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await ArCoreController.checkArCoreAvailability().then((value) => print(value.toString()));
-  await ArCoreController.checkIsArCoreInstalled().then((value) => print(value.toString()));
-
-  runApp(const MyApp());
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routeProvider);
+    final theme = ref.watch(themeProvider);
+
+    if (!router.hasValue) {
+      return const CircularProgressIndicator();
+    }
+
+    return MaterialApp.router(
       title: 'Terere Lab',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const ExoViewer(),
+      theme: theme.value,
+      routerConfig: router.value,
     );
   }
 }
