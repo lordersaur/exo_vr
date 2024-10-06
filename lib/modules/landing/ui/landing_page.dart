@@ -11,8 +11,10 @@ class LandingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Container(
         decoration: BoxDecoration(
+          backgroundBlendMode: BlendMode.screen,
           gradient: LinearGradient(
             end: Alignment.bottomCenter,
             colors: [

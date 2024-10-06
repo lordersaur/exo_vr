@@ -3,17 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ExoTheme {
   // Define your primary and background colors
-  static const Color _primaryColor = Color(0xFF1B1440); // #1B1440
+  static const Color _primaryColor = Color(0xFF191B34); // #1B1440
   static const Color _surfaceColor = Color(0xFFF1E8DE); // #F1E8DE
 
   // You can define additional colors or derive them from the primary color
   static const Color _onPrimaryColor = Colors.white;
-  static const Color _secondaryColor = Color(0xFFEE76A8); // #EE76A8
+  static const Color _secondaryColor = Color(0xFFBA356B); // #EE76A8
   static const Color _onSecondaryColor = Colors.white;
 
   static const Color _errorColor = Colors.red;
   static const Color _onErrorColor = Colors.white;
   static const Color _onSurfaceColor = Colors.black;
+
+  static const Color _outline = Color.fromARGB(123, 241, 232, 222);
+
   // Define your TextTheme
   static final TextTheme _textTheme = TextTheme(
     displayLarge: GoogleFonts.spaceGrotesk(fontSize: 57, fontWeight: FontWeight.bold),
@@ -46,6 +49,7 @@ class ExoTheme {
         onError: _onErrorColor,
         surface: _surfaceColor,
         onSurface: _onSurfaceColor,
+        outline: _outline,
       ),
       textTheme: _textTheme,
       tabBarTheme: TabBarTheme(
@@ -56,6 +60,7 @@ class ExoTheme {
         labelColor: _secondaryColor,
         unselectedLabelColor: _onPrimaryColor,
       ),
+      dividerTheme: const DividerThemeData(),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
           shape: WidgetStatePropertyAll(
