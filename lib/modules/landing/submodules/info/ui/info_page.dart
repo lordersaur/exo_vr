@@ -80,7 +80,7 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                   textAlign: TextAlign.center,
                   text: 'Start journey!',
                   onTap: () async {
-                    context.goNamed('home');
+                    context.goNamed('planet');
                   },
                 ).animate().then(delay: 2.seconds).fadeIn(duration: 1.seconds),
               ),
