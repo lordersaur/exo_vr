@@ -55,64 +55,62 @@ class PlanetPage extends ConsumerWidget {
                 ),
               ),
               SliverFillRemaining(
-                  child: PageView(
+                  child: Column(
                 children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 250,
-                        width: 250,
-                        child: ModelViewer(
-                          src: planet.modelPath,
-                          alt: 'A 3D model of ${planet.name}',
-                          arScale: ArScale.auto,
-                          ar: true,
-                          autoRotate: true,
-                          cameraControls: true,
-                          disableZoom: true,
-                        ),
-                      ),
-                      Space(
-                        horizontal: 16,
-                        child: Row(
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                text: planet.name,
-                                style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                                children: [
-                                  TextSpan(
-                                    text: "\n",
-                                    style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                                  ),
-                                ],
+                  SizedBox(
+                    height: 250,
+                    width: 250,
+                    child: ModelViewer(
+                      iosSrc: planet.modelPath,
+                      src: planet.modelPath,
+                      alt: 'A 3D model of ${planet.name}',
+                      arScale: ArScale.auto,
+                      arModes: ['quick-look'],
+                      ar: true,
+                      autoRotate: true,
+                      cameraControls: true,
+                      disableZoom: true,
+                    ),
+                  ),
+                  Space(
+                    horizontal: 16,
+                    child: Row(
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: planet.name,
+                            style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                            children: [
+                              TextSpan(
+                                text: "\n",
+                                style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Space(
-                        horizontal: 16,
-                        child: Divider(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      ),
-                      Space(
-                        horizontal: 16,
-                        child: Text(
-                          planet.description,
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                        ),
-                      ),
-                      Space(
-                        horizontal: 16,
-                        child: Divider(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                      )
-                    ],
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Space(
+                    horizontal: 16,
+                    child: Divider(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                  ),
+                  Space(
+                    horizontal: 16,
+                    child: Text(
+                      planet.description,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                    ),
+                  ),
+                  Space(
+                    horizontal: 16,
+                    child: Divider(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                   )
                 ],
               ))
