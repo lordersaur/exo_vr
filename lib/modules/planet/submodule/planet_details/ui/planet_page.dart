@@ -1,8 +1,7 @@
-import 'package:exo_vr/modules/landing/submodules/info/ui/info_page.dart';
 import 'package:exo_vr/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class PlanetPage extends ConsumerWidget {
   const PlanetPage({super.key});
@@ -50,9 +49,18 @@ class PlanetPage extends ConsumerWidget {
                   Container(
                     child: Column(
                       children: [
-                        Image.asset(
-                          'assets/images/moon.png',
+                        const SizedBox(
                           height: 250,
+                          width: 250,
+                          child: ModelViewer(
+                            src: 'assets/models/moon_lite.glb',
+                            alt: 'A 3D model of an Exoplanet',
+                            arScale: ArScale.auto,
+                            ar: true,
+                            autoRotate: true,
+                            cameraControls: true,
+                            disableZoom: true,
+                          ),
                         ),
                         Space(
                           horizontal: 16,
@@ -61,11 +69,17 @@ class PlanetPage extends ConsumerWidget {
                               RichText(
                                 text: TextSpan(
                                   text: 'Moon',
-                                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge!
+                                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
                                   children: [
                                     TextSpan(
                                       text: "\nEarth's little brother",
-                                      style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(color: Theme.of(context).colorScheme.onPrimary),
                                     ),
                                   ],
                                 ),
