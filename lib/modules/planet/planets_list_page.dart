@@ -15,38 +15,36 @@ class PlanetsListPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Container(
-        decoration: BoxDecoration(
-          backgroundBlendMode: BlendMode.overlay,
-          gradient: RadialGradient(
-            tileMode: TileMode.clamp,
-            stops: const [0.1, 1],
-            radius: 1,
-            colors: [
-              Theme.of(context).colorScheme.surface,
-              Theme.of(context).colorScheme.primary,
-            ],
+          decoration: BoxDecoration(
+            backgroundBlendMode: BlendMode.overlay,
+            gradient: RadialGradient(
+              tileMode: TileMode.clamp,
+              stops: const [0.1, 1],
+              radius: 1,
+              colors: [
+                Theme.of(context).colorScheme.surface,
+                Theme.of(context).colorScheme.primary,
+              ],
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Space(
-                    vertical: 32,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/icon/icon.png',
-                          height: 200,
-                        ),
-                      ],
-                    ),
+          child: CustomScrollView(
+            slivers: [
+              SliverSafeArea(
+                sliver: SliverAppBar(
+                  expandedHeight: 200,
+                  automaticallyImplyLeading: false,
+                  backgroundColor: Colors.transparent,
+                  flexibleSpace: Image.asset(
+                    'assets/icon/icon.png',
+                    height: 200,
                   ),
-                  const Row(
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Space(
+                  horizontal: 16,
+                  bottom: 0,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
@@ -60,7 +58,6 @@ class PlanetsListPage extends ConsumerWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 4),
                           Text(
                             "Exoplanets",
                             style: TextStyle(
@@ -72,8 +69,13 @@ class PlanetsListPage extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  const Row(
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Space(
+                  bottom: 0,
+                  horizontal: 16,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -86,45 +88,45 @@ class PlanetsListPage extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  home.when(
-                    data: (data) => SizedBox(
-                      height: 300,
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => const SizedBox(width: 16),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: data.length,
-                        itemBuilder: (context, index) => PlanetCard(
-                          planetName: data[index].name,
-                          description: data[index].description,
-                          assetImage: data[index].assetPath,
-                          onTap: () => context.goNamed(
-                            'planet',
-                            extra: data[index],
-                          ),
-                        ),
-                      ),
-                    ),
-                    error: (_, __) => const SizedBox.shrink(),
-                    loading: () => SizedBox(
-                      height: 300,
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => const SizedBox(width: 16),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (context, index) => const Shimmer(
-                          height: 300,
-                          width: 200,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: home.when(
+                  data: (data) => SizedBox(
+                    height: 300,
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(16),
+                      separatorBuilder: (context, index) => const SizedBox(width: 16),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: data.length,
+                      itemBuilder: (context, index) => PlanetCard(
+                        planetName: data[index].name,
+                        description: data[index].description,
+                        assetImage: data[index].assetPath,
+                        onTap: () => context.goNamed(
+                          'planet',
+                          extra: data[index],
                         ),
                       ),
                     ),
                   ),
-                ],
+                  error: (_, __) => const SizedBox.shrink(),
+                  loading: () => SizedBox(
+                    height: 300,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const SizedBox(width: 16),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) => const Shimmer(
+                        height: 300,
+                        width: 200,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      ),
+            ],
+          )),
     );
   }
 }

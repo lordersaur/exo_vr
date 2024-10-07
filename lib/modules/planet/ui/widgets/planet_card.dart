@@ -44,7 +44,7 @@ class PlanetCard extends StatelessWidget {
             Expanded(
               child: RichText(
                 overflow: TextOverflow.ellipsis,
-                maxLines: 6,
+                maxLines: 4,
                 text: TextSpan(
                   text: planetName,
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
