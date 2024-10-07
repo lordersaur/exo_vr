@@ -51,10 +51,7 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                 bottom: 0,
                 child: Text(
                   'Explore the solar system!',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
                 ).animate().then(delay: 1.seconds).fadeIn(duration: 1.seconds),
               ),
               Space(
@@ -80,7 +77,7 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                   textAlign: TextAlign.center,
                   text: 'Start journey!',
                   onTap: () async {
-                    context.goNamed('planet');
+                    context.goNamed('planets');
                   },
                 ).animate().then(delay: 2.seconds).fadeIn(duration: 1.seconds),
               ),

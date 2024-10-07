@@ -1,4 +1,3 @@
-import 'package:exo_vr/modules/landing/submodules/info/ui/info_page.dart';
 import 'package:exo_vr/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,17 +28,25 @@ class PlanetPage extends ConsumerWidget {
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
-                leading: Icon(
-                  Icons.arrow_back_outlined,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_outlined,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  onPressed: () async {
+                    context.goNamed('planets');
+                  },
                 ),
                 backgroundColor: Colors.transparent,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Icon(
-                      Icons.more_horiz_outlined,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                    IconButton(
+                      icon: Icon(
+                        Icons.more_horiz_outlined,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      onPressed: () {},
                     ),
                   ],
                 ),
