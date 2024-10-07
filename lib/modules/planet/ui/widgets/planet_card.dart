@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class PlanetCard extends StatelessWidget {
-  final Color color;
   final String planetName;
   final String description;
   final String assetImage;
@@ -10,7 +9,6 @@ class PlanetCard extends StatelessWidget {
 
   const PlanetCard({
     super.key,
-    required this.color,
     required this.planetName,
     required this.description,
     required this.assetImage,
@@ -19,43 +17,55 @@ class PlanetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Container(
         width: 200,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: color,
+          gradient: LinearGradient(
+            end: Alignment.bottomCenter,
+            colors: [
+              Theme.of(context).colorScheme.secondary,
+              Theme.of(context).colorScheme.primary,
+            ],
+          ),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
               assetImage,
-              height: 140,
+              height: 150,
               fit: BoxFit.contain,
             ),
-            const SizedBox(height: 20),
-            Text(
-              planetName,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              description,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 18,
+            Expanded(
+              child: RichText(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 6,
+                text: TextSpan(
+                  text: planetName,
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                  children: [
+                    TextSpan(
+                      text: '\n$description',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-      ).animate().fadeIn(duration: 0.5.seconds).scale(duration: 1.seconds),
+      ).animate().then(delay: 1.seconds).shimmer(duration: 1.seconds, curve: Curves.easeInOut),
     );
   }
 }

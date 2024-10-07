@@ -24,7 +24,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             radius: 1,
             colors: [
               Theme.of(context).colorScheme.surface,
-              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.surface,
             ],
           ),
         ),
@@ -51,18 +51,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                   data: (data) => ListView.builder(
                       itemBuilder: (context, index) => Card(
                             child: Text(data[index].name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(color: Theme.of(context).colorScheme.onPrimary)),
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onPrimary)),
                           ),
                       itemCount: data.length),
                   loading: () => const CircularProgressIndicator(),
-                  error: (error, stack) => Text('Error: $error',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: Theme.of(context).colorScheme.onError))),
+                  error: (error, stack) =>
+                      Text('Error: $error', style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onError))),
             )
           ],
         ),

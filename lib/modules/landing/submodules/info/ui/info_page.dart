@@ -1,4 +1,4 @@
-import 'package:exo_vr/ui/provider/route_provider.dart';
+import 'package:exo_vr/ui/provider/global_provider.dart';
 import 'package:exo_vr/ui/widgets/filled_button.dart';
 import 'package:exo_vr/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                 top: 32,
                 bottom: 0,
                 child: Text(
-                  'Explore the solar system!',
+                  'Get to know amazing findings.',
                   style: Theme.of(context)
                       .textTheme
                       .headlineMedium!
@@ -61,8 +61,9 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                 bottom: 0,
                 horizontal: 16,
                 child: Text(
-                  'With 360 degree angle view',
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
+                  'With 360 degree angle view of exoplanets!',
+                  style:
+                      Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
                 ).animate().then(delay: 1.seconds).fadeIn(duration: 1.seconds),
               )
             ],
@@ -80,6 +81,7 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                   textAlign: TextAlign.center,
                   text: 'Start journey!',
                   onTap: () async {
+                    ref.read(globalProvider.notifier).setFirstRun(true);
                     context.goNamed('planets');
                   },
                 ).animate().then(delay: 2.seconds).fadeIn(duration: 1.seconds),

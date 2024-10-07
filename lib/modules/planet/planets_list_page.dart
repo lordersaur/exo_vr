@@ -1,4 +1,7 @@
+import 'package:exo_vr/modules/home/provider/home_page_provider.dart';
 import 'package:exo_vr/modules/planet/ui/widgets/planet_card.dart';
+import 'package:exo_vr/ui/widgets/shimmer.dart';
+import 'package:exo_vr/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,146 +11,118 @@ class PlanetsListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final home = ref.watch(homeProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 40),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Let's Explore",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      "The milky way galaxy",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Most Popular",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                // Icon(Icons.arrow_forward, color: Colors.white),
-              ],
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 300,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+      body: Container(
+        decoration: BoxDecoration(
+          backgroundBlendMode: BlendMode.overlay,
+          gradient: RadialGradient(
+            tileMode: TileMode.clamp,
+            stops: const [0.1, 1],
+            radius: 1,
+            colors: [
+              Theme.of(context).colorScheme.surface,
+              Theme.of(context).colorScheme.primary,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PlanetCard(
-                    color: Colors.orange,
-                    planetName: "Earth",
-                    description: "The minor planet",
-                    assetImage: 'assets/images/earth.png',
-                    onTap: () async {
-                      context.goNamed('planet');
-                    },
+                  Space(
+                    vertical: 32,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icon/icon.png',
+                          height: 200,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(width: 20),
-                  PlanetCard(
-                    color: Colors.red,
-                    planetName: "Mars",
-                    description: "The red planet",
-                    assetImage: 'assets/images/mars.png',
-                    onTap: () async {
-                      context.goNamed('planet');
-                    },
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Let's Explore",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "Exoplanets",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 20),
-                  PlanetCard(
-                    color: Colors.blue,
-                    planetName: "Moon",
-                    description: "Farthest from the sun",
-                    assetImage: 'assets/images/moon.png',
-                    onTap: () async {
-                      context.goNamed('planet');
-                    },
+                  const SizedBox(height: 20),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Most Popular",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  home.when(
+                    data: (data) => SizedBox(
+                      height: 300,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(width: 16),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) => PlanetCard(
+                          planetName: data[index].name,
+                          description: data[index].description,
+                          assetImage: data[index].assetPath,
+                          onTap: () => context.goNamed(
+                            'planet',
+                            extra: data[index],
+                          ),
+                        ),
+                      ),
+                    ),
+                    error: (_, __) => const SizedBox.shrink(),
+                    loading: () => SizedBox(
+                      height: 300,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(width: 16),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (context, index) => const Shimmer(
+                          height: 300,
+                          width: 200,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            // const Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(
-            //       "You may also like",
-            //       style: TextStyle(
-            //         color: Colors.white,
-            //         fontSize: 18,
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            //     ),
-            //     Icon(Icons.arrow_forward, color: Colors.white),
-            //   ],
-            // ),
-            // const SizedBox(height: 16),
-            // Expanded(
-            //   child: GridView.count(
-            //     crossAxisCount: 2,
-            //     crossAxisSpacing: 16,
-            //     mainAxisSpacing: 16,
-            //     children: [
-            //       PlanetCard(
-            //         color: Colors.green,
-            //         planetName: "Moon",
-            //         description: "The icy planet",
-            //         assetImage: 'assets/images/moon.png',
-            //         onTap: () async {
-            //           context.goNamed('planet');
-            //         },
-            //       ),
-            //       PlanetCard(
-            //         color: Colors.brown,
-            //         planetName: "Venus",
-            //         description: "Hot & bright",
-            //         assetImage: 'assets/images/mars.png',
-            //         onTap: () async {
-            //           context.goNamed('planet');
-            //         },
-            //       ),
-            //       PlanetCard(
-            //         color: Colors.orange,
-            //         planetName: "Jupiter",
-            //         description: "The gas giant",
-            //         assetImage: 'assets/images/earth.png',
-            //         onTap: () async {
-            //           context.goNamed('planet');
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
-          ],
+          ),
         ),
       ),
     );

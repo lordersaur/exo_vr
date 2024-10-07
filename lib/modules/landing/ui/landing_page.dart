@@ -1,5 +1,6 @@
 import 'package:exo_vr/modules/landing/submodules/info/ui/info_page.dart';
 import 'package:exo_vr/modules/landing/submodules/welcome/ui/welcome_page.dart';
+import 'package:exo_vr/ui/provider/global_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,6 +11,7 @@ class LandingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(globalProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Container(

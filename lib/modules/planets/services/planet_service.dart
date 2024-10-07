@@ -18,8 +18,7 @@ class PlanetService {
     final encodedNames = names.map((name) => "'${Uri.encodeComponent(name)}'").join(',');
 
     final queryParam = {
-      "query":
-          "SELECT pl_name,pl_rade,pl_bmasse,pl_orbper,pl_eqt,st_teff FROM pscomppars WHERE pl_name IN ($encodedNames)",
+      "query": "SELECT pl_name,pl_rade,pl_bmasse,pl_orbper,pl_eqt,st_teff FROM pscomppars WHERE pl_name IN ($encodedNames)",
       "format": "json",
     };
 
@@ -37,8 +36,7 @@ class PlanetService {
 
   Future<Planet> findByName(String name) async {
     final queryParam = {
-      "query":
-          "SELECT+pl_name,pl_rade,pl_bmasse,pl_orbper,pl_eqt,st_teff+FROM+pscomppars+WHERE+pl_name+IN+${Uri.encodeQueryComponent(name)}",
+      "query": "SELECT+pl_name,pl_rade,pl_bmasse,pl_orbper,pl_eqt,st_teff+FROM+pscomppars+WHERE+pl_name+IN+${Uri.encodeQueryComponent(name)}",
       "format": "json",
     };
     try {
@@ -48,6 +46,9 @@ class PlanetService {
       Log.error("Error al obtener el planeta", e);
       return Planet(
         name: name,
+        description: '',
+        assetPath: '',
+        modelPath: '',
         rade: 0,
         masse: 0,
         timeOrbitStar: 0,

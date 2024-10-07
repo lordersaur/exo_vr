@@ -1,10 +1,13 @@
+import 'package:exo_vr/modules/planets/models/planet.dart';
 import 'package:exo_vr/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class PlanetPage extends ConsumerWidget {
-  const PlanetPage({super.key});
+  const PlanetPage({super.key, required this.planet});
+  final Planet planet;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,7 +37,7 @@ class PlanetPage extends ConsumerWidget {
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   onPressed: () async {
-                    context.goNamed('planets');
+                    context.pop();
                   },
                 ),
                 backgroundColor: Colors.transparent,
@@ -54,70 +57,62 @@ class PlanetPage extends ConsumerWidget {
               SliverFillRemaining(
                   child: PageView(
                 children: [
-                  Container(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 250,
-                          width: 250,
-                          child: ModelViewer(
-                            src: 'assets/models/moon_lite.glb',
-                            alt: 'A 3D model of an Exoplanet',
-                            arScale: ArScale.auto,
-                            ar: true,
-                            autoRotate: true,
-                            cameraControls: true,
-                            disableZoom: true,
-                          ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 250,
+                        width: 250,
+                        child: ModelViewer(
+                          src: planet.modelPath,
+                          alt: 'A 3D model of ${planet.name}',
+                          arScale: ArScale.auto,
+                          ar: true,
+                          autoRotate: true,
+                          cameraControls: true,
+                          disableZoom: true,
                         ),
-                        Space(
-                          horizontal: 16,
-                          child: Row(
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Moon',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge!
-                                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                                  children: [
-                                    TextSpan(
-                                      text: "\nEarth's little brother",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge!
-                                          .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                      ),
+                      Space(
+                        horizontal: 16,
+                        child: Row(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                text: planet.name,
+                                style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                                children: [
+                                  TextSpan(
+                                    text: "\n",
+                                    style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        Space(
-                          horizontal: 16,
-                          child: Divider(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
+                      ),
+                      Space(
+                        horizontal: 16,
+                        child: Divider(
+                          color: Theme.of(context).colorScheme.outline,
                         ),
-                        Space(
-                          horizontal: 16,
-                          child: Text(
-                            'Cillum ad quis aliquip qui irure fugiat qui ullamco eiusmod elit ullamco aliqua elit. Dolore consequat eiusmod esse exercitation. Officia incididunt commodo ullamco nostrud commodo nostrud qui labore ullamco officia adipisicing id.',
-                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                  color: Theme.of(context).colorScheme.onPrimary,
-                                ),
-                          ),
+                      ),
+                      Space(
+                        horizontal: 16,
+                        child: Text(
+                          planet.description,
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                         ),
-                        Space(
-                          horizontal: 16,
-                          child: Divider(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      Space(
+                        horizontal: 16,
+                        child: Divider(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                      )
+                    ],
                   )
                 ],
               ))
