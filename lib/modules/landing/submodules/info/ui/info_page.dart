@@ -62,10 +62,7 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                 horizontal: 16,
                 child: Text(
                   'With 360 degree angle view',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimary),
                 ).animate().then(delay: 1.seconds).fadeIn(duration: 1.seconds),
               )
             ],
@@ -83,7 +80,7 @@ class InfoPageState extends ConsumerState<InfoPage> with SingleTickerProviderSta
                   textAlign: TextAlign.center,
                   text: 'Start journey!',
                   onTap: () async {
-                    context.goNamed('home');
+                    context.goNamed('planets');
                   },
                 ).animate().then(delay: 2.seconds).fadeIn(duration: 1.seconds),
               ),
