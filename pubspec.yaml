@@ -30,28 +30,19 @@ environment:
 dependencies:
   arcore_flutter_plugin: ^0.1.0
   cupertino_icons: ^1.0.8
+  dio: ^5.7.0
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  go_router: ^14.3.0
-  flutter_riverpod: ^2.5.1
-  model_viewer_plus: ^1.9.0
-  vector_math: ^2.1.4
-  dio: ^5.7.0
-  shared_preferences: ^2.3.2
   flutter_animate: ^4.5.0
+  flutter_riverpod: ^2.5.1
+  go_router: ^14.3.0
   google_fonts: ^6.2.1
+  hooks_riverpod: ^2.5.2
+  model_viewer_plus: ^1.9.0
+  shared_preferences: ^2.3.2
+  vector_math: ^2.1.4
 
 dev_dependencies:
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
@@ -71,7 +62,7 @@ flutter:
     - assets/images/
     - assets/icon/
     - assets/fonts/
-    - assets/models/kepler_22_b.glb
+    - assets/models/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
